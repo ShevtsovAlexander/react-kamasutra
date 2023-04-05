@@ -1,0 +1,71 @@
+.nav {
+  grid-area: n;
+  background-color: rgb(95, 220, 245);
+  width: 100%;
+  display: grid;
+  grid-template-areas:
+    "navbar"
+    "friends";
+  grid-template-rows: 280px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.item {
+  color: whitesmoke;
+  padding: 3% 5%;
+}
+
+.item a {
+  color: whitesmoke;
+  text-decoration: none;
+  font-size: 2.4vw;
+}
+
+.item a:hover {
+  background-color: rgb(118, 226, 226);
+  border-radius: 9%;
+  font-size: larger;
+  font-size: 2.4vw;
+
+}
+
+.item .activeLink {
+  background-color: rgb(58, 213, 213);
+  border-radius: 9%;
+  font-size: larger;
+  font-size: 2.6vw;
+}
+
+.friends {
+  grid-area: friends;
+}
+.friends h1{
+  font-size: 2.8vw;
+  text-align: center;
+}
+.navbar {
+  grid-area: navbar;
+}
+
+.friendItems {
+  width: 100%;
+ display: flex;
+ flex-wrap: wrap;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+}
+
+.imgFriends{
+  display: block;
+  width: 35%;
+  height: 35%;
+  padding: 3.4%;
+  margin: auto;
+}
+.friendItem p{
+  font-size: 2.4vw;
+  margin-top: 0;
+  text-align: center;
+}

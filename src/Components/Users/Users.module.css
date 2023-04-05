@@ -1,0 +1,12 @@
+.nameIcons {
+    width: 15%;
+    height: 15%;
+    padding: 2.4%;
+    vertical-align: middle;
+}
+.pages {
+    cursor: pointer;
+}
+.selectedPage {
+    font-weight: bold;
+}

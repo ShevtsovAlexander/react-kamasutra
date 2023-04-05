@@ -1,0 +1,32 @@
+.beach {
+  width: 100%;
+  height: 30%;
+}
+
+.myDate {
+  display: grid;
+  grid-template-areas:
+    "palm bio"
+    "palm bio";
+  grid-template-rows: 1fr;
+  grid-template-columns: 0.5fr 1fr;
+  grid-gap: 10px;
+  align-items: center;
+  padding: 10px;
+}
+
+.bio {
+  grid-area: bio;
+  width: 100%;
+  font-size: 2.4vw;
+}
+.palm {
+  grid-area: palm;
+  width: 100%;
+  height: 100%;
+}
+
+.palm img {
+  width: auto;
+  height: auto;
+}
