@@ -1,5 +1,5 @@
 import React from 'react';
-import preloader from '../../Asserts/images/Preloader.gif';
+import preloader from '../../../Asserts/images/Preloader.gif';
 let Preloader = (props) => {
   return (
     <div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import profileInfo from './ProfileInfo.module.css';
-import Preloader from '../../common/Preloader';
+import Preloader from '../../common/Preloader/Preloader';
 import profileIcon from '../../../Asserts/images/171-1717870_stockvader-predicted-cron-for-may-user-profile-icon-png.png';
 import ProfileStatus from './ProfileStatus';
 
