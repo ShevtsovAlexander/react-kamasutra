@@ -9,7 +9,6 @@ const AddMessageForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field component={'textarea'} placeholder="Enter your message" name="newMessageBody" />
         <Field
           component={Textarea}
           validate={[required, maxLength50]}
@@ -19,7 +18,6 @@ const AddMessageForm = (props) => {
       </div>
       <div>
         <button>Send</button>
-        <button>Send222</button>
       </div>
     </form>
   );
