@@ -15,7 +15,6 @@ const authReducer = (state = InitialReducer, action) => {
       return {
         ...state,
         ...action.data,
-        isAuth: true,
       };
 
     default:
