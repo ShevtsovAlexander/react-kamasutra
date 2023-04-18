@@ -3,7 +3,8 @@ import mypost from './MyPosts.module.css';
 import Post from './Post/Post';
 import NewPost from './MyPostForm';
 
-const MyPosts = (props) => {
+function MyPosts(props) {
+  console.log('wtf');
   let postsElements = props.posts.map((p) => <Post message={p.message} likesCount={p.likesCount} />);
 
   const ref = React.createRef();
@@ -20,6 +21,6 @@ const MyPosts = (props) => {
       <div className={mypost.posts}>{postsElements}</div>
     </div>
   );
-};
+}
 
 export default MyPosts;

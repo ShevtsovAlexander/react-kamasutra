@@ -2,7 +2,7 @@ import React from 'react';
 import profileInfo from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
 import profileIcon from '../../../Asserts/images/171-1717870_stockvader-predicted-cron-for-may-user-profile-icon-png.png';
-import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatusWithHook';
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -17,9 +17,9 @@ const ProfileInfo = (props) => {
         ></img>
       </div>
       <div className={profileInfo.myDate}>
-        <div className={profileInfo.palm}>
+        <div className={profileInfo.icon}>
           <img src={props.profile.photos.large ? props.profile.photos.large : profileIcon}></img>
-          <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} />
+          <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus} />
         </div>
 
         <div className={profileInfo.bio}>
