@@ -1,0 +1,8 @@
+.selectedPage {
+  font-weight: bold;
+  cursor: pointer;
+}
+span {
+  cursor: pointer;
+
+}
