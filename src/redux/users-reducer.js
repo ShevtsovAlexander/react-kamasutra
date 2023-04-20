@@ -37,8 +37,8 @@ const InitialReducer = {
   //     location: { city: 'Krasnodar', country: 'Russia' },
   //   },
   // ],
-  pageSize: 5,
-  totalUsersCount: 110,
+  pageSize: 10,
+  totalUsersCount: 0,
   currentPage: 1,
   isFetching: true,
   followingInProgress: [],
@@ -96,7 +96,7 @@ export const requestUsers = (currentPage, pageSize) => {
     let data = await userAPI.getUsers(currentPage, pageSize);
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(data.items));
-    // this.props.setTotalUsersCount(response.data.totalCount);
+    dispatch(setTotalUsersCount(data.totalCount));
   };
 };
 const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {

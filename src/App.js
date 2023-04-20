@@ -10,10 +10,11 @@ import UsersContainer from './Components/Users/UsersContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import Login from './Components/Login/Login';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import { initializeApp } from './redux/app-reducer';
 import Preloader from './Components/common/Preloader/Preloader';
+import store from './redux/redux-store';
 
 export const routerPath = {
   // dialogs: '/dialogs',
@@ -58,9 +59,20 @@ class App extends Component {
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   initialized: state.app.initialized,
 });
 
-export default compose(connect(mapStateToProps, { initializeApp }))(App);
+let AppContainer = compose(connect(mapStateToProps, { initializeApp }))(App);
+
+const SamuraiJSApp = (props) => {
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
+    </BrowserRouter>
+  );
+};
+
+export default SamuraiJSApp;
