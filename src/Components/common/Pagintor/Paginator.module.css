@@ -2,8 +2,8 @@ span {
   cursor: pointer;
 
 }
-
 .paginator {
+  display: flex;
   margin: 10px;
 }
 .pageNumber {
