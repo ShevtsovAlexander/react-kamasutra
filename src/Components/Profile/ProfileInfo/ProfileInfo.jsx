@@ -1,13 +1,19 @@
 import React from 'react';
 import profileInfo from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
-import profileIcon from '../../../Asserts/images/171-1717870_stockvader-predicted-cron-for-may-user-profile-icon-png.png';
+import profileIcon from '../../../Asserts/images/free-icon-profile-3135768.png';
 import ProfileStatusWithHooks from './ProfileStatusWithHook';
 
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = ({ profile, savePhoto, status, updateUserStatus, isOwner }) => {
+  if (!profile) {
     return <Preloader />;
   }
+
+  const onMainPhotoSelected = (e) => {
+    if (e.target.files.length) {
+      savePhoto(e.target.files[0]);
+    }
+  };
   return (
     <div>
       <div>
@@ -18,18 +24,19 @@ const ProfileInfo = (props) => {
       </div>
       <div className={profileInfo.myDate}>
         <div className={profileInfo.icon}>
-          <img src={props.profile.photos.large ? props.profile.photos.large : profileIcon}></img>
-          <ProfileStatusWithHooks status={props.status} updateUserStatus={props.updateUserStatus} />
+          <img src={profile.photos.large || profileIcon}></img>
+          {isOwner && <input type={'file'} onChange={onMainPhotoSelected} />}
+          <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus} />
         </div>
 
         <div className={profileInfo.bio}>
-          <h1>{props.profile.fullName}</h1>
+          <h1>{profile.fullName}</h1>
 
           <ul>
-            <li>About me: {props.profile.aboutMe}</li>
+            <li>About me: {profile.aboutMe}</li>
             <li>City: Moscow</li>
             <li>Education: RANEPA</li>
-            <li>To contact me: {props.profile.contacts.twitter}</li>
+            <li>To contact me: {profile.contacts.twitter}</li>
           </ul>
         </div>
       </div>

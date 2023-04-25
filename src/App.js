@@ -19,8 +19,8 @@ import store from './redux/redux-store';
 export const routerPath = {
   // dialogs: '/dialogs',
   dialogsId: `/dialogs/:id?`,
-  // profile: '/profile',
-  profileId: '/profile/:userId?',
+  profile: '/profile',
+  profileId: '/profile/:userId',
   music: '/music',
   news: '/news',
   settings: '/settings',
@@ -47,6 +47,7 @@ class App extends Component {
             {/*<Route path={routerPath.dialogs || routerPath.dialogsId} render={() => <DialogsContainer />} />*/}
             <Route path={routerPath.dialogsId} render={() => <DialogsContainer />} />
             <Route path={routerPath.profileId} render={() => <ProfileContainer />} />
+            <Route exact path={routerPath.profile} render={() => <ProfileContainer />} />
             <Route path={routerPath.users} render={() => <UsersContainer />} />
             <Route path={routerPath.music} render={() => <Music />} />
             <Route path={routerPath.news} render={() => <News />} />
@@ -67,11 +68,9 @@ let AppContainer = compose(connect(mapStateToProps, { initializeApp }))(App);
 
 const SamuraiJSApp = (props) => {
   return (
-    <BrowserRouter>
-      <Provider store={store}>
-        <AppContainer />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
   );
 };
 

@@ -4,7 +4,7 @@ import { stopSubmit } from 'redux-form';
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 
 const InitialReducer = {
-  id: null,
+  userId: null,
   email: null,
   login: null,
 };
@@ -22,9 +22,9 @@ const authReducer = (state = InitialReducer, action) => {
   }
 };
 
-export const setAuthUserData = (id, email, login, isAuth) => ({
+export const setAuthUserData = (userId, email, login, isAuth) => ({
   type: SET_USER_DATA,
-  data: { id, email, login, isAuth },
+  data: { userId, email, login, isAuth },
 });
 
 export const getAuthUserData = () => async (dispatch) => {

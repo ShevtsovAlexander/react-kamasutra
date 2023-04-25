@@ -3,6 +3,7 @@
     height: 15%;
     padding: 2.4%;
     vertical-align: middle;
+    border-radius: 100%;
 }
 .pages {
     cursor: pointer;

@@ -4,7 +4,6 @@ import Post from './Post/Post';
 import NewPost from './MyPostForm';
 
 function MyPosts(props) {
-  console.log('wtf');
   let postsElements = props.posts.map((p) => <Post message={p.message} likesCount={p.likesCount} />);
 
   const ref = React.createRef();
