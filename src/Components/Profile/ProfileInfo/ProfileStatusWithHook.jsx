@@ -21,12 +21,18 @@ const ProfileStatusWithHooks = (props) => {
 
   return (
     <div>
-      <div>
-        {!editMode && <span onDoubleClick={activateEditMode}>{props.status || 'Please enter your status'}</span>}
-      </div>
-      <div>
-        {editMode && <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode} value={status} />}
-      </div>
+      {!editMode && (
+        <div>
+          {' '}
+          <b>Status: </b> <span onDoubleClick={activateEditMode}>{props.status || 'Please enter your status'}</span>
+        </div>
+      )}
+      {editMode && (
+        <div>
+          {' '}
+          <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode} value={status} />{' '}
+        </div>
+      )}
     </div>
   );
 };
