@@ -8,14 +8,15 @@ import style from './../common/FormsControls/FormsControls.module.css';
 import { Redirect } from 'react-router-dom';
 
 const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
+  debugger;
   return (
     <form onSubmit={handleSubmit}>
       {createField('Email', 'email', [required], Input)}
       {createField('Password', 'password', [required], Input, { type: 'password' })}
       {createField(null, 'rememberMe', [], Input, { type: 'checkbox' }, 'remember me')}
 
-      {captchaUrl && <img src={captchaUrl} />}
-      {captchaUrl && createField('Symbols from image', 'captcha', [required], Input, {})}
+      {/*{captchaUrl && <img src={captchaUrl} />}*/}
+      {/*{captchaUrl && createField('Symbols from image', 'captcha', [required], Input, {})}*/}
 
       {error && <div className={style.formSummaryError}>{error}</div>}
       <div>
@@ -27,7 +28,7 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
 
 const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm);
 
-const Login = ({ login, isAuth }) => {
+const Login = ({ login, isAuth, captchaUrl }) => {
   const onSubmit = (formData) => {
     login(formData.email, formData.password, formData.rememberMe, formData.captchaUrl);
   };
@@ -38,7 +39,7 @@ const Login = ({ login, isAuth }) => {
   return (
     <div>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
     </div>
   );
 };

@@ -86,6 +86,7 @@ const ProfileData = ({ profile, isOwner, goToEditMode }) => {
     </div>
   );
 };
+
 const Contact = ({ contactTitle, contactValue }) => {
   return (
     <div className={profileInfo.contact}>

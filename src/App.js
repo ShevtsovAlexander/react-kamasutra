@@ -53,6 +53,14 @@ class App extends Component {
             <Route path={routerPath.news} render={() => <News />} />
             <Route path={routerPath.settings} render={() => <Settings />} />
             <Route path={routerPath.login} render={() => <Login />} />
+            {/*<Route*/}
+            {/*  path="*"*/}
+            {/*  render={() => (*/}
+            {/*    <div>*/}
+            {/*      <b>404 NOT FOUND</b>*/}
+            {/*    </div>*/}
+            {/*  )}*/}
+            {/*/>*/}
             {/*</Routes>*/}
           </div>
         </div>
