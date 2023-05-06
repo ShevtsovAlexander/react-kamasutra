@@ -6,9 +6,9 @@ const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
 
 const initialState = {
   userId: null as number | null,
-  email: null as number | null,
-  login: null as number | null,
-  captchaUrl: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
+  captchaUrl: null as string | null,
   isAuth: false,
 };
 type InitialStateType = typeof initialState;
@@ -50,7 +50,7 @@ type GetCaptchaUrlSuccessActionType = {
   type: typeof GET_CAPTCHA_URL_SUCCESS;
   data: { captchaUrl: string };
 };
-export const getCaptchaUrlSuccess = (captchaUrl): GetCaptchaUrlSuccessActionType => ({
+export const getCaptchaUrlSuccess = (captchaUrl: string): GetCaptchaUrlSuccessActionType => ({
   type: GET_CAPTCHA_URL_SUCCESS,
   data: { captchaUrl },
 });

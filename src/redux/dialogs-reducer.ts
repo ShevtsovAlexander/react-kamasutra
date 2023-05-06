@@ -31,7 +31,7 @@ const initialState = {
       name: 'Anton',
       id: 443,
     },
-  ],
+  ] as Array<DialogType>,
   messages: [
     {
       message: 'Hi',
@@ -53,7 +53,7 @@ const initialState = {
       message: 'Yeah Boy',
       id: 443,
     },
-  ],
+  ] as Array<MessageType>,
 };
 type InitialStateType = typeof initialState;
 const dialogsReducer = (state = initialState, action: any): InitialStateType => {

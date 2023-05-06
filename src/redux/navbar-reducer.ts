@@ -1,4 +1,10 @@
-const InitialReducer = {
+type navLinksType = {
+  id: number;
+  to: string;
+  menu: string;
+};
+
+const InitialState = {
   navLinks: [
     {
       id: 1,
@@ -30,11 +36,12 @@ const InitialReducer = {
       to: '/settings',
       menu: 'Settings',
     },
-  ],
-  navFriends: ['Ivan', 'Amir', 'Adam'],
+  ] as Array<navLinksType>,
+  navFriends: ['Ivan', 'Amir', 'Adam'] as Array<string>,
 };
 
-const navbarReducer = (state = InitialReducer, action) => {
+type InitialStateType = typeof InitialState;
+const navbarReducer = (state = InitialState, action: any): InitialStateType => {
   return state;
 };
 

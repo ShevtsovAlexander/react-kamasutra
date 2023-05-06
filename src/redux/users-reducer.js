@@ -11,32 +11,6 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 const InitialReducer = {
   users: [],
-  // [
-  //   {
-  //     id: 1,
-  //     followed: false,
-  //     fullName: 'Alexander',
-  //     photoUrl: 'https://cdn-icons-png.flaticon.com/512/1250/1250751.png',
-  //     status: 'I am studying REACT',
-  //     location: { city: 'Moscow', country: 'Russia' },
-  //   },
-  //   {
-  //     id: 2,
-  //     followed: true,
-  //     fullName: 'Amir',
-  //     photoUrl: 'https://cdn-icons-png.flaticon.com/512/1250/1250751.png',
-  //     status: 'I am studying REACT, too',
-  //     location: { city: 'Yalta', country: 'Russia' },
-  //   },
-  //   {
-  //     id: 3,
-  //     followed: false,
-  //     fullName: 'Anton',
-  //     photoUrl: 'https://cdn-icons-png.flaticon.com/512/1250/1250751.png',
-  //     status: 'I am working at home!',
-  //     location: { city: 'Krasnodar', country: 'Russia' },
-  //   },
-  // ],
   pageSize: 10,
   totalUsersCount: 0,
   currentPage: 1,
