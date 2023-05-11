@@ -1,9 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import user from './Users.module.css';
 import userPhoto from '../../Asserts/images/free-icon-profile-3135768.png';
-import React from 'react';
+import * as React from 'react';
+import { UserType } from '../../types/types';
 
-let User = ({ users, followingInProgress, unfollow, follow }) => {
+type userType = {
+  users: UserType;
+  followingInProgress: Array<number>;
+  unfollow: (userId: number) => void;
+  follow: (userId: number) => void;
+};
+let User = ({ users, followingInProgress, unfollow, follow }: userType): JSX.Element => {
   return (
     <div>
       <span>

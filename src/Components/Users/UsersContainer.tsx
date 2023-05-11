@@ -14,6 +14,7 @@ import {
 import { UserType } from '../../types/types';
 import { AppStateType } from '../../redux/redux-store';
 import { compose } from 'redux';
+
 type MapStatePropsType = {
   currentPage: number;
   pageSize: number;

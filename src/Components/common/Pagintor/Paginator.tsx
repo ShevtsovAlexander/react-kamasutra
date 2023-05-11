@@ -11,7 +11,13 @@ type PropsType = {
   portionSize?: number;
 };
 
-let Paginator: React.FC<PropsType> = ({ totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10 }) => {
+let Paginator = ({
+  totalItemsCount,
+  pageSize,
+  currentPage,
+  onPageChanged,
+  portionSize = 10,
+}: PropsType): JSX.Element => {
   let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
   let pages = [] as Array<number>;
