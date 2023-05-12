@@ -1,2 +1,2 @@
-declare module 'redux-form';
+declare module 'redux-form-types';
 declare module 'classnames';
