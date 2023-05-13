@@ -6,8 +6,7 @@ import { login } from '../../redux/auth-reducer';
 import style from './../common/FormsControls/FormsControls.module.css';
 import { Redirect } from 'react-router-dom';
 import { AppStateType } from '../../redux/redux-store';
-import { InjectedFormProps } from 'redux-form-types/reduxForm';
-import { reduxForm } from 'redux-form-types/reduxForm';
+import { InjectedFormProps, reduxForm } from 'redux-form';
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps> & LoginFormOwnProps> = ({
   handleSubmit,
