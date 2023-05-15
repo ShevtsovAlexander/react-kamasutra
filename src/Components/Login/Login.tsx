@@ -15,9 +15,9 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
 }) => {
   return (
     <form onSubmit={handleSubmit}>
-      {createField('Email', 'email', [required], Input)}
-      {createField('Password', 'password', [required], Input, { type: 'password' })}
-      {createField(null, 'rememberMe', [], Input, { type: 'checkbox' }, 'remember me')}
+      {createField<LoginFormValuesTypeKeys>('Email', 'email', [required], Input)}
+      {createField<LoginFormValuesTypeKeys>('Password', 'password', [required], Input, { type: 'password' })}
+      {createField<LoginFormValuesTypeKeys>(null, 'rememberMe', [], Input, { type: 'checkbox' }, 'remember me')}
 
       {captchaUrl && <img alt={'Captcha URL'} src={captchaUrl} />}
       {captchaUrl && createField('Symbols from image', 'captcha', [required], Input, {})}
@@ -50,6 +50,8 @@ export type LoginFormValuesType = {
 type LoginFormOwnProps = {
   captchaUrl: string | null;
 };
+
+type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType, string>;
 
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ login, isAuth, captchaUrl }) => {
   const onSubmit = (formData: LoginFormValuesType) => {
