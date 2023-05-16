@@ -16,7 +16,11 @@ let User = ({ users, followingInProgress, unfollow, follow }: userType): JSX.Ele
       <span>
         <div>
           <NavLink to={'/profile/' + users.id}>
-            <img className={user.nameIcons} src={users.photos.small != null ? users.photos.small : userPhoto} />
+            <img
+              alt="profile"
+              className={user.nameIcons}
+              src={users.photos.small != null ? users.photos.small : userPhoto}
+            />
           </NavLink>
         </div>
         <div>

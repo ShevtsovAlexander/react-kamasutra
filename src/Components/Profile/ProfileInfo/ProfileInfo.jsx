@@ -26,13 +26,14 @@ const ProfileInfo = ({ profile, savePhoto, status, updateUserStatus, isOwner, sa
     <div>
       <div>
         <img
+          alt="background img"
           className={profileInfo.beach}
           src="https://oir.mobi/uploads/posts/2021-06/1623718749_20-oir_mobi-p-more-panorama-priroda-krasivo-foto-31.jpg"
         ></img>
       </div>
       <div className={profileInfo.myDate}>
         <div className={profileInfo.icon}>
-          <img src={profile.photos.large || profileIcon}></img>
+          <img alt="icon profile" src={profile.photos.large || profileIcon}></img>
           {isOwner && <input type={'file'} onChange={onMainPhotoSelected} />}
 
           {editMode ? (
