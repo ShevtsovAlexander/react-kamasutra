@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { ChangeEvent, useState } from 'react';
 import profileInfo from './ProfileInfo.module.css';
 import Preloader from '../../common/Preloader/Preloader';
 import profileIcon from '../../../Asserts/images/free-icon-profile-3135768.png';
 import ProfileStatusWithHooks from './ProfileStatusWithHook';
-import ProfileDataForm from './ProfileDataForm.jsx';
+import ProfileDataForm from './ProfileDataForm';
+import { ContactsType, ProfileType } from '../../../types/types';
 
-const ProfileInfo = ({ profile, savePhoto, status, updateUserStatus, isOwner, saveProfile }) => {
+type PropsType = {
+  updateUserStatus: (status: string) => void;
+  savePhoto: (file: File) => void;
+  saveProfile: (profile: ProfileType) => Promise<any>;
+  profile: ProfileType;
+  status: string;
+  isOwner: boolean;
+};
+type ProfileDataPropsType = {
+  goToEditMode: () => void;
+  profile: ProfileType;
+  isOwner: boolean;
+};
+const ProfileInfo: React.FC<PropsType> = ({ profile, savePhoto, status, updateUserStatus, isOwner, saveProfile }) => {
   let [editMode, setEditMode] = useState(false);
 
   if (!profile) {
     return <Preloader />;
   }
 
-  const onMainPhotoSelected = (e) => {
-    if (e.target.files.length) {
+  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length) {
       savePhoto(e.target.files[0]);
     }
   };
-  const onSubmit = (formData) => {
+  const onSubmit = (formData: ProfileType) => {
     saveProfile(formData).then(() => {
       setEditMode(false);
     });
@@ -55,7 +70,7 @@ const ProfileInfo = ({ profile, savePhoto, status, updateUserStatus, isOwner, sa
   );
 };
 
-const ProfileData = ({ profile, isOwner, goToEditMode }) => {
+const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, goToEditMode }) => {
   return (
     <div>
       {isOwner && (
@@ -80,15 +95,19 @@ const ProfileData = ({ profile, isOwner, goToEditMode }) => {
       </div>
       <div>
         <b>Contacts</b>:{' '}
-        {Object.keys(profile.contacts).map((key) => {
-          return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]} />;
+        {Object.keys(profile.contacts).map((key: string) => {
+          return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]} />;
         })}
       </div>
     </div>
   );
 };
 
-const Contact = ({ contactTitle, contactValue }) => {
+type ContactPropsType = {
+  contactTitle: string;
+  contactValue: string;
+};
+const Contact: React.FC<ContactPropsType> = ({ contactTitle, contactValue }) => {
   return (
     <div className={profileInfo.contact}>
       <b>{contactTitle}</b>: {contactValue}

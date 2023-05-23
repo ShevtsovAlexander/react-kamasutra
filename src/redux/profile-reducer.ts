@@ -16,9 +16,8 @@ const InitialState = {
       likeCounts: 11,
     },
   ] as Array<PostType>,
-  profile: null as null | ProfileType,
+  profile: null as ProfileType | null,
   status: '',
-  newPostText: '',
 };
 
 const profileReducer = (state = InitialState, action: ActionsType): InitialStateType => {
@@ -85,13 +84,13 @@ export const getUserProfile = (userId: number): ThunkType => {
     dispatch(actions.setUserProfile(response));
   };
 };
-export const getUserStatus = (userId: number): ThunkType => {
+export const getStatus = (userId: number): ThunkType => {
   return async (dispatch) => {
     let response = await profileAPI.getStatus(userId);
     dispatch(actions.setUserStatus(response));
   };
 };
-export const updateUserStatus = (status: string): ThunkType => {
+export const updateStatus = (status: string): ThunkType => {
   return async (dispatch) => {
     let response = await profileAPI.updateStatus(status);
     if (response.resultCode === 0) {

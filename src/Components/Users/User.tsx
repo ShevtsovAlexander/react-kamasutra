@@ -10,7 +10,7 @@ type userType = {
   unfollow: (userId: number) => void;
   follow: (userId: number) => void;
 };
-let User = ({ users, followingInProgress, unfollow, follow }: userType): JSX.Element => {
+let User: React.FC<userType> = ({ users, followingInProgress, unfollow, follow }) => {
   return (
     <div>
       <span>

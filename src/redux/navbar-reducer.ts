@@ -1,4 +1,4 @@
-type navLinksType = {
+export type navLinksType = {
   id: number;
   to: string;
   menu: string;

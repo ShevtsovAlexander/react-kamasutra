@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ChangeEvent } from 'react';
+import { updateStatus } from '../../../redux/profile-reducer';
 
 type StateType = {
   editMode: boolean;
@@ -7,7 +8,7 @@ type StateType = {
 };
 type PropsType = {
   status: string;
-  updateUserStatus: (newStatus: string) => void;
+  updateStatus: (newStatus: string) => void;
 };
 
 export default class ProfileStatus extends React.Component<PropsType, StateType> {
@@ -25,7 +26,7 @@ export default class ProfileStatus extends React.Component<PropsType, StateType>
     this.setState({
       editMode: false,
     });
-    this.props.updateUserStatus(this.state.status);
+    this.props.updateStatus(this.state.status);
   };
   onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({

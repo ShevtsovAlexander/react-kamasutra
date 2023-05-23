@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createField, Input } from '../common/FormsControls/FormsControls';
+import { createField, GetStringKeys, Input } from '../common/FormsControls/FormsControls';
 import { required } from '../../utils/validators/validators';
 import { connect } from 'react-redux';
 import { login } from '../../redux/auth-reducer';
@@ -51,7 +51,7 @@ type LoginFormOwnProps = {
   captchaUrl: string | null;
 };
 
-type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType, string>;
+type LoginFormValuesTypeKeys = GetStringKeys<LoginFormValuesType>;
 
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = ({ login, isAuth, captchaUrl }) => {
   const onSubmit = (formData: LoginFormValuesType) => {

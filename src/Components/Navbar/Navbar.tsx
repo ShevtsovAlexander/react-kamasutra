@@ -1,10 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import navbar from './Navbar.module.css';
 import { useSelector } from 'react-redux';
+import { AppStateType } from '../../redux/redux-store';
 
-const Navbar = (props) => {
-  const navState = useSelector((state) => state.navBar);
+const Navbar = () => {
+  const navState = useSelector((state: AppStateType) => state.navBar);
 
   return (
     <nav className={navbar.nav}>
@@ -24,7 +25,7 @@ const Navbar = (props) => {
         <h1>Friends</h1>
         <div className={navbar.friendItems}>
           {navState.navFriends.map((n) => (
-            <div key={n.id} className={navbar.friendItem}>
+            <div className={navbar.friendItem}>
               <img className={navbar.imgFriends} src="https://www.svgrepo.com/show/62628/sea.svg" alt={'fd'}></img>
               <p>{n}</p>
             </div>

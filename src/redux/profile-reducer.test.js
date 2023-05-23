@@ -1,5 +1,6 @@
-import profileReducer, { addPostActionCreator } from './profile-reducer';
+import profileReducer from './profile-reducer';
 import React from 'react';
+import { actions } from './profile-reducer';
 
 let state = {
   posts: [
@@ -14,10 +15,13 @@ let state = {
       likeCounts: 11,
     },
   ],
+  profile: null,
+  status: '',
+  newPostText: '',
 };
 
 it('length of posts should be incremented', () => {
-  let action = addPostActionCreator('it-kamasutra.com');
+  let action = actions.addPostActionCreator('it-kamasutra.com');
 
   let newState = profileReducer(state, action);
 

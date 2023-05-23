@@ -1,6 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import preloader from '../../../Asserts/images/Preloader.gif';
-let Preloader = (props) => {
+let Preloader: React.FC = () => {
   return (
     <div>
       <img alt="preloader" src={preloader} />

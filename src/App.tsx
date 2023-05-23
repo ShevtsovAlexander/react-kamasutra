@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import * as React from 'react';
+import { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import Music from './Components/Music/Music';
@@ -14,7 +15,7 @@ import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import { initializeApp } from './redux/app-reducer';
 import Preloader from './Components/common/Preloader/Preloader';
-import store from './redux/redux-store';
+import store, { AppStateType } from './redux/redux-store';
 
 export const routerPath = {
   // dialogs: '/dialogs',
@@ -28,7 +29,11 @@ export const routerPath = {
   login: '/login',
 };
 
-class App extends Component {
+type MapPropsType = ReturnType<typeof mapStateToProps>;
+type DispatchPropsType = {
+  initializeApp: () => void;
+};
+class App extends Component<MapPropsType & DispatchPropsType> {
   componentDidMount() {
     this.props.initializeApp();
   }
@@ -37,7 +42,9 @@ class App extends Component {
     if (!this.props.initialized) {
       return <Preloader />;
     }
+
     return (
+      // @ts-ignore
       <BrowserRouter>
         <div className="app-wrapper">
           <HeaderContainer />
@@ -54,13 +61,6 @@ class App extends Component {
             <Route path={routerPath.settings} render={() => <Settings />} />
             <Route path={routerPath.login} render={() => <Login />} />
             {/*<Route*/}
-            {/*  path="*"*/}
-            {/*  render={() => (*/}
-            {/*    <div>*/}
-            {/*      <b>404 NOT FOUND</b>*/}
-            {/*    </div>*/}
-            {/*  )}*/}
-            {/*/>*/}
             {/*</Routes>*/}
           </div>
         </div>
@@ -68,13 +68,13 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
 });
 
-let AppContainer = compose(connect(mapStateToProps, { initializeApp }))(App);
+let AppContainer = compose<React.ComponentType>(connect(mapStateToProps, { initializeApp }))(App);
 
-const SamuraiJSApp = (props) => {
+const SamuraiJSApp: React.FC = () => {
   return (
     <Provider store={store}>
       <AppContainer />

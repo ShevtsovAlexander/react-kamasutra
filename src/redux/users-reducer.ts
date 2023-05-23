@@ -1,8 +1,7 @@
 import { updateObjectInArray } from '../utils/object-helpers';
 import { UserType } from '../types/types';
-import { AppStateType, InferActionsTypes } from './redux-store';
+import { BaseThunkType, InferActionsTypes } from './redux-store';
 import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import { userAPI } from '../API/users-api';
 
 const InitialState = {
@@ -13,8 +12,6 @@ const InitialState = {
   isFetching: true,
   followingInProgress: [] as Array<number>,
 };
-
-type InitialStateType = typeof InitialState;
 
 const usersReducer = (state = InitialState, action: ActionTypes): InitialStateType => {
   switch (action.type) {
@@ -41,15 +38,13 @@ const usersReducer = (state = InitialState, action: ActionTypes): InitialStateTy
         ...state,
         followingInProgress: action.isFetching
           ? [...state.followingInProgress, action.userId]
-          : state.followingInProgress.filter((id) => id !== action.userId),
+          : state.followingInProgress.filter((id) => id != action.userId),
       };
 
     default:
       return state;
   }
 };
-
-type ActionTypes = InferActionsTypes<typeof actions>;
 
 export const actions = {
   followSuccess: (userId: number) => ({ type: 'FOLLOW', userId } as const),
@@ -84,9 +79,6 @@ export const actions = {
     } as const),
 };
 
-type GetStateType = () => AppStateType;
-type DispatchType = Dispatch<ActionTypes>;
-type ThunkType = ThunkAction<Promise<void>, GetStateType, unknown, ActionTypes>;
 export const requestUsers = (currentPage: number, pageSize: number): ThunkType => {
   return async (dispatch, getState) => {
     dispatch(actions.setCurrentPage(currentPage));
@@ -106,8 +98,7 @@ const followUnfollowFlow = async (
 ) => {
   dispatch(actions.toggleFollowingProgress(true, userId));
   let response = await apiMethod(userId);
-
-  if (response.data.resultCode === 0) {
+  if (response.resultCode == 0) {
     dispatch(actionCreator(userId));
   }
   dispatch(actions.toggleFollowingProgress(false, userId));
@@ -123,3 +114,8 @@ export const unfollow = (userId: number): ThunkType => {
   };
 };
 export default usersReducer;
+
+type InitialStateType = typeof InitialState;
+type ActionTypes = InferActionsTypes<typeof actions>;
+type DispatchType = Dispatch<ActionTypes>;
+type ThunkType = BaseThunkType<ActionTypes>;
