@@ -11,6 +11,10 @@ const InitialState = {
   currentPage: 1,
   isFetching: true,
   followingInProgress: [] as Array<number>,
+  filter: {
+    term: ' ',
+    friend: null as null | boolean,
+  },
 };
 
 const usersReducer = (state = InitialState, action: ActionTypes): InitialStateType => {
@@ -27,6 +31,8 @@ const usersReducer = (state = InitialState, action: ActionTypes): InitialStateTy
       };
     case 'SET_USERS':
       return { ...state, users: action.users };
+    case 'SET_FILTER':
+      return { ...state, filter: action.payload };
     case 'SET_CURRENT_USERS':
       return { ...state, currentPage: action.currentPage };
     case 'SET_TOTAL_USERS_COUNT':
@@ -64,6 +70,11 @@ export const actions = {
       type: 'SET_TOTAL_USERS_COUNT',
       totalUsersCount,
     } as const),
+  setFilter: (filter: FilterType) =>
+    ({
+      type: 'SET_FILTER',
+      payload: filter,
+    } as const),
 
   toggleIsFetching: (isFetching: boolean) =>
     ({
@@ -79,11 +90,12 @@ export const actions = {
     } as const),
 };
 
-export const requestUsers = (currentPage: number, pageSize: number): ThunkType => {
+export const requestUsers = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => {
   return async (dispatch, getState) => {
-    dispatch(actions.setCurrentPage(currentPage));
     dispatch(actions.toggleIsFetching(true));
-    let data = await userAPI.getUsers(currentPage, pageSize);
+    dispatch(actions.setCurrentPage(currentPage));
+    dispatch(actions.setFilter(filter));
+    let data = await userAPI.getUsers(currentPage, pageSize, filter.term, filter.friend);
     dispatch(actions.toggleIsFetching(false));
     dispatch(actions.setUsers(data.items));
     dispatch(actions.setTotalUsersCount(data.totalCount));
@@ -115,7 +127,8 @@ export const unfollow = (userId: number): ThunkType => {
 };
 export default usersReducer;
 
-type InitialStateType = typeof InitialState;
+export type InitialStateType = typeof InitialState;
+export type FilterType = typeof InitialState.filter;
 type ActionTypes = InferActionsTypes<typeof actions>;
 type DispatchType = Dispatch<ActionTypes>;
 type ThunkType = BaseThunkType<ActionTypes>;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { ChangeEvent } from 'react';
-import { updateStatus } from '../../../redux/profile-reducer';
 
 type StateType = {
   editMode: boolean;
