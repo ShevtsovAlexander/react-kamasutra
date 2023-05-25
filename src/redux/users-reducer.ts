@@ -131,4 +131,4 @@ export type InitialStateType = typeof InitialState;
 export type FilterType = typeof InitialState.filter;
 type ActionTypes = InferActionsTypes<typeof actions>;
 type DispatchType = Dispatch<ActionTypes>;
-type ThunkType = BaseThunkType<ActionTypes>;
+export type ThunkType = BaseThunkType<ActionTypes>;
