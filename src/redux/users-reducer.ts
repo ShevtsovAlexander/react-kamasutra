@@ -102,7 +102,7 @@ export const requestUsers = (currentPage: number, pageSize: number, filter: Filt
   };
 };
 
-const followUnfollowFlow = async (
+export const followUnfollowFlow = async (
   dispatch: DispatchType,
   userId: number,
   apiMethod: any,

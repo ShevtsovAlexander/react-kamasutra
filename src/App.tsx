@@ -55,7 +55,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
             <Route path={routerPath.dialogsId} render={() => <DialogsContainer />} />
             <Route path={routerPath.profileId} render={() => <ProfileContainer />} />
             <Route exact path={routerPath.profile} render={() => <ProfileContainer />} />
-            <Route path={routerPath.users} render={() => <UsersPage pageTitle={'Search users'} />} />
+            <Route path={routerPath.users} render={() => <UsersPage pageTitle={'Search users:'} />} />
             <Route path={routerPath.music} render={() => <Music />} />
             <Route path={routerPath.news} render={() => <News />} />
             <Route path={routerPath.settings} render={() => <Settings />} />

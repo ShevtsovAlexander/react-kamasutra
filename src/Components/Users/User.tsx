@@ -7,10 +7,10 @@ import { UserType } from '../../types/types';
 type userType = {
   users: UserType;
   followingInProgress: Array<number>;
-  unfollow: (userId: number) => void;
-  follow: (userId: number) => void;
+  unFollow: (userId: number) => void;
+  followUser: (userId: number) => void;
 };
-let User: React.FC<userType> = ({ users, followingInProgress, unfollow, follow }) => {
+let User: React.FC<userType> = ({ users, followingInProgress, unFollow, followUser }) => {
   return (
     <div>
       <span>
@@ -28,7 +28,7 @@ let User: React.FC<userType> = ({ users, followingInProgress, unfollow, follow }
             <button
               disabled={followingInProgress.some((id) => id === users.id)}
               onClick={() => {
-                unfollow(users.id);
+                unFollow(users.id);
               }}
             >
               Unfollow
@@ -37,7 +37,7 @@ let User: React.FC<userType> = ({ users, followingInProgress, unfollow, follow }
             <button
               disabled={followingInProgress.some((id) => id === users.id)}
               onClick={() => {
-                follow(users.id);
+                followUser(users.id);
               }}
             >
               Follow

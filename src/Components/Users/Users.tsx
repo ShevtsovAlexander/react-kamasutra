@@ -2,7 +2,7 @@ import * as React from 'react';
 import User from './User';
 import Paginator from '../common/Pagintor/Paginator';
 import { UsersSearchForm } from './UsersSearchForm';
-import { FilterType, requestUsers } from '../../redux/users-reducer';
+import { FilterType, requestUsers, follow, unfollow } from '../../redux/users-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getCurrentPage,
@@ -13,6 +13,7 @@ import {
   getUsersFilter,
 } from '../../redux/users-selectors';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 type PropsType = {};
 
 export const Users: React.FC<PropsType> = (props) => {
@@ -23,6 +24,14 @@ export const Users: React.FC<PropsType> = (props) => {
   const pageSize = useSelector(getPageSize);
   const followingInProgress = useSelector(getFollowingInProgress);
   const dispatch: any = useDispatch();
+  const history: any = useHistory();
+
+  useEffect(() => {
+    history.push({
+      pathname: '/users',
+      search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`,
+    });
+  }, [filter, currentPage]);
 
   useEffect(() => {
     dispatch(requestUsers(currentPage, pageSize, filter));
@@ -34,10 +43,10 @@ export const Users: React.FC<PropsType> = (props) => {
   const onFilterChanged = (filter: FilterType) => {
     dispatch(requestUsers(1, pageSize, filter));
   };
-  const follow = (userId: number) => {
+  const followUser = (userId: number) => {
     dispatch(follow(userId));
   };
-  const unfollow = (userId: number) => {
+  const unFollow = (userId: number) => {
     dispatch(unfollow(userId));
   };
 
@@ -54,7 +63,13 @@ export const Users: React.FC<PropsType> = (props) => {
       />
       <div>
         {users.map((u) => (
-          <User users={u} followingInProgress={followingInProgress} key={u.id} unfollow={unfollow} follow={follow} />
+          <User
+            users={u}
+            followingInProgress={followingInProgress}
+            key={u.id}
+            unFollow={unFollow}
+            followUser={followUser}
+          />
         ))}
       </div>
     </div>
