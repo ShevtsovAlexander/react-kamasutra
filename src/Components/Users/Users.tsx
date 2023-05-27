@@ -14,8 +14,14 @@ import {
 } from '../../redux/users-selectors';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import * as queryString from 'querystring';
 type PropsType = {};
 
+type QueryParamsType = {
+  term?: string;
+  friend?: string;
+  page?: string;
+};
 export const Users: React.FC<PropsType> = (props) => {
   const users = useSelector(getUsers);
   const totalUsersCount = useSelector(getTotalUsersCount);
@@ -24,18 +30,37 @@ export const Users: React.FC<PropsType> = (props) => {
   const pageSize = useSelector(getPageSize);
   const followingInProgress = useSelector(getFollowingInProgress);
   const dispatch: any = useDispatch();
-  const history: any = useHistory();
+  const history = useHistory();
+
+  let actualFilter = filter;
+  useEffect(() => {
+    const parsed = queryString.parse(history.location.search.substring(1)) as QueryParamsType;
+
+    let actualPage = currentPage;
+
+    if (parsed.term) actualFilter = { ...actualFilter, term: parsed.term };
+
+    if (parsed.friend) {
+      actualFilter.friend = parsed.friend === 'true' ? true : parsed.friend === 'false' ? false : null;
+    }
+    if (parsed.page) {
+      actualPage = +parsed.page;
+    }
+    dispatch(requestUsers(actualPage, pageSize, actualFilter));
+  }, []);
 
   useEffect(() => {
+    const query: QueryParamsType = {};
+
+    if (filter.term) query.term = filter.term;
+    if (filter.friend !== null) query.friend = String(filter.friend);
+    if (currentPage !== 1) query.page = String(currentPage);
+
     history.push({
       pathname: '/users',
-      search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`,
+      search: queryString.stringify(query),
     });
   }, [filter, currentPage]);
-
-  useEffect(() => {
-    dispatch(requestUsers(currentPage, pageSize, filter));
-  }, []);
 
   const onPageChanged = (pageNumber: number) => {
     dispatch(requestUsers(pageNumber, pageSize, filter));
@@ -53,7 +78,7 @@ export const Users: React.FC<PropsType> = (props) => {
   return (
     <div>
       <div>
-        <UsersSearchForm onFilterChanged={onFilterChanged} />
+        <UsersSearchForm onFilterChanged={onFilterChanged} initialValue={actualFilter} />
       </div>
       <Paginator
         currentPage={currentPage}
