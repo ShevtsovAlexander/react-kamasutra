@@ -18,7 +18,7 @@ const InitialState = {
     },
     {
       id: 3,
-      to: '/users',
+      to: '/developers',
       menu: 'Users',
     },
     {
