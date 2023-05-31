@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { BrowserRouter, Link, Route, Router } from 'react-router-dom';
+import { Component, Suspense } from 'react';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
 import './App.css';
 import 'antd/dist/antd.css';
 import Music from './Components/Music/Music';
@@ -16,11 +16,14 @@ import { initializeApp } from './redux/app-reducer';
 import Preloader from './Components/common/Preloader/Preloader';
 import store, { AppStateType } from './redux/redux-store';
 import { Breadcrumb, Layout, Menu } from 'antd';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { LaptopOutlined, UserOutlined } from '@ant-design/icons';
 import { Header } from './Components/Header/Header';
+// import { ChatPage } from './pages/Chat/ChatPage';
 
 const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;
+
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'));
 
 export const routerPath = {
   // dialogs: '/dialogs',
@@ -32,6 +35,7 @@ export const routerPath = {
   settings: '/settings',
   users: '/developers',
   login: '/login',
+  chatPage: '/chat',
 };
 
 type MapPropsType = ReturnType<typeof mapStateToProps>;
@@ -92,6 +96,10 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                       {' '}
                       <Link to={routerPath.settings}>Settings</Link>
                     </Menu.Item>
+                    <Menu.Item key="7">
+                      {' '}
+                      <Link to={routerPath.chatPage}>Chat Page</Link>
+                    </Menu.Item>
                   </SubMenu>
                 </Menu>
               </Sider>
@@ -104,6 +112,9 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                 <Route path={routerPath.news} render={() => <News />} />
                 <Route path={routerPath.settings} render={() => <Settings />} />
                 <Route path={routerPath.login} render={() => <Login />} />
+                <Suspense fallback={<Preloader />}>
+                  <Route path={routerPath.chatPage} render={() => <ChatPage />} />
+                </Suspense>
               </Content>
             </Layout>
           </Content>

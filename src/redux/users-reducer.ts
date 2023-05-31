@@ -44,7 +44,7 @@ const usersReducer = (state = InitialState, action: ActionTypes): InitialStateTy
         ...state,
         followingInProgress: action.isFetching
           ? [...state.followingInProgress, action.userId]
-          : state.followingInProgress.filter((id) => id != action.userId),
+          : state.followingInProgress.filter((id) => id !== action.userId),
       };
 
     default:
@@ -110,7 +110,7 @@ export const followUnfollowFlow = async (
 ) => {
   dispatch(actions.toggleFollowingProgress(true, userId));
   let response = await apiMethod(userId);
-  if (response.resultCode == 0) {
+  if (response.resultCode === 0) {
     dispatch(actionCreator(userId));
   }
   dispatch(actions.toggleFollowingProgress(false, userId));

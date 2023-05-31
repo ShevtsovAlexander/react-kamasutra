@@ -60,7 +60,7 @@ export const Users: React.FC<PropsType> = (props) => {
       pathname: '/developers',
       search: queryString.stringify(query),
     });
-  }, [filter, currentPage]);
+  }, [filter, currentPage, history]);
 
   const onPageChanged = (pageNumber: number) => {
     dispatch(requestUsers(pageNumber, pageSize, filter));

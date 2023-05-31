@@ -1,6 +1,5 @@
 import { ResultCodeEnum, ResultCodeForCapcthaEnum } from '../API/api';
 import { FormAction, stopSubmit } from 'redux-form';
-import { Dispatch } from 'redux';
 import { securityAPI } from '../API/security-api';
 import { authAPI } from '../API/auth-api';
 import { BaseThunkType, InferActionsTypes } from './redux-store';

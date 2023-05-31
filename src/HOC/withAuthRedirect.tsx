@@ -2,25 +2,23 @@ import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppStateType } from '../redux/redux-store.js';
+import { FC } from 'react';
 
 let mapStateToPropsForRedirect = (state: AppStateType) =>
   ({
     isAuth: state.auth.isAuth,
-  } as MapPropsType);
+  } as WrapperProps);
 
-type MapPropsType = {
+type WrapperProps = {
   isAuth: boolean;
 };
-type DispatchPropsType = {};
-
-export function withAuthRedirect<WCP>(WrappedComponent: React.ComponentType<WCP>) {
-  const RedirectComponent: React.FC<MapPropsType & WCP> = (props): JSX.Element => {
-    let { isAuth, ...restProps } = props;
+export function withAuthRedirect<P extends WrapperProps>(WrappedComponent: React.ComponentType<P>): FC<P> {
+  const RedirectComponent: FC<P> = (props) => {
+    let { isAuth, ...wrappedOnlyProps } = props;
 
     if (!isAuth) return <Redirect to="/login" />;
-    // @ts-ignore
-    return <WrappedComponent {...(restProps as WCP)} />;
+    return <WrappedComponent {...(wrappedOnlyProps as P)} />;
   };
-  // @ts-ignore
-  return connect<MapPropsType, DispatchPropsType, WCP, AppStateType>(mapStateToPropsForRedirect)(RedirectComponent);
+  //@ts-ignore
+  return connect<WrapperProps, {}, P, AppStateType>(mapStateToPropsForRedirect)(RedirectComponent);
 }
