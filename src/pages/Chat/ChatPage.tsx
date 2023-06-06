@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage, startMessagesListening, stopMessagesListening } from '../../redux/chat-reducer';
 import { AppStateType } from '../../redux/redux-store';
 import { ChatMessageType } from '../../API/chat-api';
 
-export const ChatPage: React.FC = () => {
+const ChatPage: React.FC = () => {
   return (
     <div>
       <Chat />
@@ -30,15 +30,16 @@ export const Chat: React.FC = () => {
 export const Messages: React.FC = () => {
   const messages = useSelector((state: AppStateType) => state.chat.messages);
   const messagesAnchorRef = useRef<HTMLDivElement>(null);
+  const memoValue = useMemo(() => ({ messages }), []);
+  console.log(messages);
 
   useEffect(() => {
     messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
+
   return (
     <div style={{ height: '400px', overflow: 'auto' }}>
-      {messages.map((m: ChatMessageType) => (
-        <Message message={m} />
-      ))}
+      {React.useMemo(() => messages.map((m: ChatMessageType) => <Message message={m} />), [messages])}
       <div ref={messagesAnchorRef}></div>
     </div>
   );
@@ -53,7 +54,7 @@ export const Message: React.FC<{ message: ChatMessageType }> = React.memo(({ mes
     </div>
   );
 });
-export const AddMessageForm: React.FC = () => {
+export const AddMessageForm: React.FC = React.memo(() => {
   const [message, setMessage] = useState('');
   const dispatch: any = useDispatch();
 
@@ -82,5 +83,5 @@ export const AddMessageForm: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 export default ChatPage;

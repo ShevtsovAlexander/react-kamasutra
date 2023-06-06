@@ -13,7 +13,7 @@ const chatReducer = (state = initialState, action: ActionTypes): InitialStateTyp
     case 'MESSAGES_RECEVIED':
       return {
         ...state,
-        messages: [...state.messages, ...action.data.messages],
+        messages: [...action.data.messages],
       };
     case 'STATUS_CHANGED':
       return {

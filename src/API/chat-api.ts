@@ -58,7 +58,7 @@ export const chatAPI = {
     subscribers[eventNames] = subscribers[eventNames].filter((s) => s !== callback);
   },
   sendMessage(message: string) {
-    ws?.send(message);
+    ws.send(message);
   },
 };
 
