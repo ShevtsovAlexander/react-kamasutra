@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage, startMessagesListening, stopMessagesListening } from '../../redux/chat-reducer';
 import { AppStateType } from '../../redux/redux-store';
@@ -30,23 +30,33 @@ export const Chat: React.FC = () => {
 export const Messages: React.FC = () => {
   const messages = useSelector((state: AppStateType) => state.chat.messages);
   const messagesAnchorRef = useRef<HTMLDivElement>(null);
-  const memoValue = useMemo(() => ({ messages }), []);
-  console.log(messages);
+  const [isAutoScroll, setIsAutoScroll] = useState(true);
+
+  const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const element = e.currentTarget;
+    if (Math.abs(element.scrollHeight - element.scrollTop - element.clientHeight) < 300) {
+      !isAutoScroll && setIsAutoScroll(true);
+    } else {
+      isAutoScroll && setIsAutoScroll(false);
+    }
+  };
 
   useEffect(() => {
-    messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (isAutoScroll) {
+      messagesAnchorRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, []);
 
   return (
-    <div style={{ height: '400px', overflow: 'auto' }}>
-      {React.useMemo(() => messages.map((m: ChatMessageType) => <Message message={m} />), [messages])}
+    <div style={{ height: '400px', overflow: 'auto' }} onScroll={scrollHandler}>
+      {React.useMemo(() => messages.map((m) => <Message key={m.id} message={m} />), [messages])}
       <div ref={messagesAnchorRef}></div>
     </div>
   );
 };
 export const Message: React.FC<{ message: ChatMessageType }> = React.memo(({ message }) => {
   return (
-    <div key={message.userId}>
+    <div>
       <img alt="Chat Avatar" style={{ width: '30px', height: ' 30px' }} src={message.photo} /> <b>{message.userName}</b>
       <br />
       {message.message}
